@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container h1 {
+  font-size: 3rem;
+  letter-spacing: 0.5rem;
+  color: white;
+}
+
+.svg {
+  cursor: pointer;
+}

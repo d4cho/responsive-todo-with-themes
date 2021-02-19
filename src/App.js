@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import styles from './App.module.css';
+import { useThemeContext } from './context/ThemeContext';
+import Header from './components/Header';
+import CreateTodo from './components/CreateTodo';
+import TodosContainer from './components/TodosContainer';
 
-function App() {
+const App = () => {
+  const { darkTheme } = useThemeContext();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={darkTheme ? styles.darkContainer : styles.lightContainer}>
+      <div className={darkTheme ? styles.darkImage : styles.lightImage}></div>
+      <div className={styles.listContainer}>
+        <Header />
+        <CreateTodo />
+        <TodosContainer />
+        <span className={styles.text}>My Todo List</span>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

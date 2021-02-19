@@ -1,0 +1,74 @@
+.darkContainer {
+  position: relative;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #1a0d63;
+  color: lightgray;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.darkContainer:hover .cross {
+  visibility: visible;
+}
+
+.lightContainer {
+  position: relative;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  color: darkgray;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.lightContainer:hover .cross {
+  visibility: visible;
+}
+
+.circle {
+  position: relative;
+  border: 1px solid orchid;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-right: 2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circleCompleted {
+  position: relative;
+  border: 1px solid orchid;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-right: 2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orchid;
+}
+
+.text {
+  width: 30rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cross {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  visibility: hidden;
+}

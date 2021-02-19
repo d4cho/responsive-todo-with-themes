@@ -1,0 +1,68 @@
+.darkContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(55, 55, 55);
+}
+
+.darkImage {
+  width: 100%;
+  height: 35%;
+  background-image: url(/src/assets/images/bg-desktop-dark.jpg);
+  background-size: cover;
+}
+
+.lightContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(209, 209, 209);
+}
+
+.lightImage {
+  width: 100%;
+  height: 35%;
+  background-image: url(/src/assets/images/bg-desktop-light.jpg);
+  background-size: cover;
+}
+
+.listContainer {
+  position: absolute;
+  top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40rem;
+  height: 80vh;
+}
+
+.text {
+  color: white;
+  margin: 2rem 0rem;
+}
+
+@media screen and (max-width: 768px) {
+  .darkImage {
+    width: 100%;
+    height: 25%;
+    background-image: url(/src/assets/images/bg-mobile-dark.jpg);
+    background-size: cover;
+  }
+
+  .lightImage {
+    width: 100%;
+    height: 25%;
+    background-image: url(/src/assets/images/bg-mobile-light.jpg);
+    background-size: cover;
+  }
+
+  .listContainer {
+    width: 80vw;
+  }
+}
