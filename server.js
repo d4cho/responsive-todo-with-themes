@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const { connect } = require('./routes/todos');
 const morgan = require('morgan');
 
 // initialize express app
