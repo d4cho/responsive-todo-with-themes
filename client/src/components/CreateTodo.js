@@ -14,9 +14,7 @@ const CreateTodo = () => {
     e.preventDefault();
 
     const newTodo = {
-      id: Math.floor(Math.random() * 99999999999999),
-      text,
-      completed: false
+      text
     };
 
     addTodo(newTodo);

@@ -1,11 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
+import axios from 'axios';
 
 // inital state
-const intialState = [
-  { id: 1, text: 'Practice coding', completed: true },
-  { id: 2, text: 'Play league', completed: false },
-  { id: 3, text: 'Take a shower', completed: true }
-];
+const intialState = [];
 
 // create context
 const TodosContext = createContext();
@@ -20,30 +17,64 @@ export function TodosProvider({ children }) {
   const [todos, setTodos] = useState(intialState);
 
   // actions
-  function deleteTodo(id) {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
+  async function getTodos() {
+    try {
+      const response = await axios.get('/api/todos');
+      const todos = response.data.data;
+      setTodos(todos);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function toggleTodoCompleted(id) {
-    const newTodos = [...todos];
-    newTodos.forEach((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
+  async function deleteTodo(id) {
+    try {
+      await axios.delete(`/api/todos/${id}`);
+      const newTodos = todos.filter((todo) => todo._id !== id);
+      setTodos(newTodos);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function addTodo(todo) {
+    const config = {
+      headers: {
+        'Content-type': 'application/json'
       }
-    });
-    setTodos(newTodos);
+    };
+    try {
+      const response = await axios.post('/api/todos', todo, config);
+      const newTodos = [...todos];
+      newTodos.push(response.data.data);
+      setTodos(newTodos);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function addTodo(todo) {
-    const newTodos = [...todos];
-    newTodos.push(todo);
-    setTodos(newTodos);
+  async function toggleTodoCompleted(id, completed) {
+    try {
+      await axios.patch(`/api/todos/${id}`, { completed });
+
+      const newTodos = [...todos];
+      const index = newTodos.findIndex((todo) => todo._id === id);
+      newTodos[index].completed = completed;
+      setTodos(newTodos);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function deleteCompletedTodos() {
-    const newTodos = todos.filter((todo) => todo.completed === false);
-    setTodos(newTodos);
+  async function deleteCompletedTodos() {
+    try {
+      await axios.delete('/api/todos');
+
+      const newTodos = todos.filter((todo) => todo.completed === false);
+      setTodos(newTodos);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -53,7 +84,8 @@ export function TodosProvider({ children }) {
         deleteTodo,
         toggleTodoCompleted,
         addTodo,
-        deleteCompletedTodos
+        deleteCompletedTodos,
+        getTodos
       }}>
       {children}
     </TodosContext.Provider>

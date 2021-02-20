@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './TodoItem.module.css';
 
 import { ReactComponent as CheckSVG } from '../assets/images/icon-check.svg';
@@ -9,7 +9,17 @@ import { useTodosContext } from '../context/TodosContext';
 const TodoItem = ({ filter }) => {
   const { darkTheme } = useThemeContext();
 
-  const { todos, deleteTodo, toggleTodoCompleted } = useTodosContext();
+  const {
+    todos,
+    deleteTodo,
+    toggleTodoCompleted,
+    getTodos
+  } = useTodosContext();
+
+  useEffect(() => {
+    getTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderTodos = () =>
     todos
@@ -28,11 +38,11 @@ const TodoItem = ({ filter }) => {
           className={darkTheme ? styles.darkContainer : styles.lightContainer}>
           <span
             className={todo.completed ? styles.circleCompleted : styles.circle}
-            onClick={() => toggleTodoCompleted(todo.id)}>
+            onClick={() => toggleTodoCompleted(todo._id, !todo.completed)}>
             {todo.completed && <CheckSVG />}
           </span>
           <div className={styles.text}>{todo.text}</div>
-          <span className={styles.cross} onClick={() => deleteTodo(todo.id)}>
+          <span className={styles.cross} onClick={() => deleteTodo(todo._id)}>
             <CrossSVG />
           </span>
         </div>

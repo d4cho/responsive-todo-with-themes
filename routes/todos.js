@@ -61,4 +61,46 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
+// @desc    Update a todo completed
+// @route   PUT /api/todos/:id
+// @access  Public
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const todo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      {
+        completed: req.body.completed
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      success: true,
+      data: todo
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: 'Could not toggle completed'
+    });
+  }
+});
+
+// @desc    Delete completed todos
+// @route   DELETE /api/todos/
+// @access  Public
+router.delete('/', async (req, res, next) => {
+  try {
+    await Todo.deleteMany({ completed: true });
+
+    return res.status(200).json({
+      success: true
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: 'Could not delete completed todos'
+    });
+  }
+});
+
 module.exports = router;
