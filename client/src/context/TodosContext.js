@@ -68,7 +68,7 @@ export function TodosProvider({ children }) {
 
   async function deleteCompletedTodos() {
     try {
-      await axios.delete('/api/todos');
+      await axios.delete('/api/todos', { params: { todoType: 'completed' } });
 
       const newTodos = todos.filter((todo) => todo.completed === false);
       setTodos(newTodos);
