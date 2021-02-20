@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const path = require('path');
 
 // initialize express app
 const app = express();
@@ -34,6 +35,16 @@ app.use(express.json());
 // routes
 const todos = require('./routes/todos');
 app.use('/api/todos', todos);
+
+// for production
+// must be after routes
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  );
+}
 
 // run server
 app.listen(
