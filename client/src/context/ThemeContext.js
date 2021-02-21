@@ -23,8 +23,6 @@ export function ThemeProvider({ children }) {
     try {
       const response = await axios.get('/api/themes');
 
-      console.log(response);
-
       setDarkTheme(response.data.data[0].isDark);
       setThemeId(response.data.data[0]._id);
     } catch (error) {
@@ -46,7 +44,7 @@ export function ThemeProvider({ children }) {
         { id: themeId, isDark },
         config
       );
-      console.log(response);
+
       setDarkTheme(response.data.data.isDark);
       setThemeId(response.data.data._id);
     } catch (error) {

@@ -40,8 +40,6 @@ router.post('/', async (req, res) => {
     // create new theme with given settings from req
     const newTheme = await Theme.create({ isDark: req.body.isDark });
 
-    console.log(newTheme);
-
     return res.status(200).json({
       success: true,
       data: newTheme
