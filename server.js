@@ -34,7 +34,9 @@ app.use(express.json());
 
 // routes
 const todos = require('./routes/todos');
+const themes = require('./routes/themes');
 app.use('/api/todos', todos);
+app.use('/api/themes', themes);
 
 // for production
 // must be after routes

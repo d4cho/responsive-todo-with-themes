@@ -34,7 +34,7 @@ const TodoItem = ({ filter }) => {
       })
       .map((todo) => (
         <div
-          key={todo.id}
+          key={todo._id}
           className={darkTheme ? styles.darkContainer : styles.lightContainer}>
           <span
             className={todo.completed ? styles.circleCompleted : styles.circle}

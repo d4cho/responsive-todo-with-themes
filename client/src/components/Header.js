@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <h1>TODO</h1>
-      <span className={styles.svg} onClick={toggleTheme}>
+      <span className={styles.svg} onClick={() => toggleTheme(!darkTheme)}>
         {darkTheme ? <DarkThemeSVG /> : <LightThemeSVG />}
       </span>
     </div>

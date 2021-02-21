@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 // create context
 const ThemeContext = createContext();
@@ -12,10 +13,45 @@ export function useThemeContext() {
 export function ThemeProvider({ children }) {
   // state
   const [darkTheme, setDarkTheme] = useState(true);
+  const [themeId, setThemeId] = useState('');
+
+  useEffect(() => {
+    getTheme();
+  }, []);
+
+  async function getTheme() {
+    try {
+      const response = await axios.get('/api/themes');
+
+      console.log(response);
+
+      setDarkTheme(response.data.data[0].isDark);
+      setThemeId(response.data.data[0]._id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // actions
-  const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
+  const toggleTheme = async (isDark) => {
+    const config = {
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
+
+    try {
+      const response = await axios.post(
+        '/api/themes',
+        { id: themeId, isDark },
+        config
+      );
+      console.log(response);
+      setDarkTheme(response.data.data.isDark);
+      setThemeId(response.data.data._id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
